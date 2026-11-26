@@ -1,0 +1,47 @@
+# Local stack: PostgreSQL for the data + Airflow (standalone) running the daily DAG.
+#   cp .env.example .env      # then set DATA_DIR to the folder with the Kaggle CSVs
+#   python -m src.train       # once, to create models/ (or train inside the container, see README)
+#   docker compose up -d --build
+#   open http://localhost:8080 (user admin; password: docker compose exec airflow cat standalone_admin_password.txt)
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      retries: 10
+
+  airflow:
+    build: .
+    command: standalone
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "true"
+      PYTHONPATH: /opt/airflow/project
+      DATA_DIR: /data
+      MODEL_DIR: /opt/airflow/project/models
+      REPORT_DIR: /opt/airflow/project/reports
+      INPUT_FILE: ${INPUT_FILE:-application_test.csv}
+      DATABASE_URL: postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./src:/opt/airflow/project/src
+      - ./models:/opt/airflow/project/models
+      - ./reports:/opt/airflow/project/reports
+      - ${DATA_DIR}:/data:ro
+
+volumes:
+  pgdata:

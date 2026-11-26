@@ -1,0 +1,10 @@
+setuptools==70.3.0  # scorecardpy imports pkg_resources
+pandas==2.1.4  # pandas 2.2 needs SQLAlchemy 2, Airflow 2.10 needs SQLAlchemy 1.4
+numpy==1.26.4
+scikit-learn==1.5.2
+scipy==1.13.1
+scorecardpy==0.1.9.7
+sqlalchemy==1.4.54
+psycopg2-binary==2.9.10
+joblib==1.4.2
+python-dotenv==1.0.1
