@@ -1,0 +1,100 @@
+{
+ "model_version": "20261126011056",
+ "rows": 307511,
+ "train_rows": 246008,
+ "test_rows": 61503,
+ "default_rate": 0.0807,
+ "scorecard_variables": 31,
+ "tree_features": 185,
+ "models": [
+  {
+   "model": "logistic_scorecard",
+   "auc": 0.7309,
+   "gini": 0.4618,
+   "ks": 0.3397,
+   "recall": 0.6693,
+   "f1": 0.2454,
+   "psi_train_vs_test": 0.0001
+  },
+  {
+   "model": "decision_tree",
+   "auc": 0.717,
+   "gini": 0.434,
+   "ks": 0.3252,
+   "recall": 0.6471,
+   "f1": 0.2415,
+   "psi_train_vs_test": 0.0003
+  },
+  {
+   "model": "random_forest",
+   "auc": 0.7346,
+   "gini": 0.4692,
+   "ks": 0.3496,
+   "recall": 0.6222,
+   "f1": 0.2609,
+   "psi_train_vs_test": 0.0006
+  }
+ ],
+ "segments": {
+  "features": [
+   "EXT_SOURCE_2",
+   "EXT_SOURCE_3",
+   "EXT_SOURCE_1",
+   "DAYS_EMPLOYED",
+   "YEARS_EMPLOYED",
+   "DAYS_BIRTH",
+   "YEARS_BIRTH",
+   "AMT_GOODS_PRICE",
+   "NAME_EDUCATION_TYPE_Higher education",
+   "DAYS_LAST_PHONE_CHANGE",
+   "AMT_CREDIT",
+   "DAYS_ID_PUBLISH",
+   "AMT_ANNUITY",
+   "CODE_GENDER_M",
+   "NAME_EDUCATION_TYPE_Secondary / secondary special"
+  ],
+  "silhouette_sample_20k": 0.1455,
+  "clusters": [
+   {
+    "cluster": 3,
+    "risk_rank": 1,
+    "train_default_rate": 0.1377,
+    "train_size": 71903,
+    "test_default_rate": 0.1398,
+    "lift_vs_average": 1.71
+   },
+   {
+    "cluster": 2,
+    "risk_rank": 2,
+    "train_default_rate": 0.0604,
+    "train_size": 46372,
+    "test_default_rate": 0.0574,
+    "lift_vs_average": 0.75
+   },
+   {
+    "cluster": 4,
+    "risk_rank": 3,
+    "train_default_rate": 0.0585,
+    "train_size": 68235,
+    "test_default_rate": 0.0594,
+    "lift_vs_average": 0.72
+   },
+   {
+    "cluster": 0,
+    "risk_rank": 4,
+    "train_default_rate": 0.0567,
+    "train_size": 38647,
+    "test_default_rate": 0.0542,
+    "lift_vs_average": 0.7
+   },
+   {
+    "cluster": 1,
+    "risk_rank": 5,
+    "train_default_rate": 0.0469,
+    "train_size": 20851,
+    "test_default_rate": 0.0511,
+    "lift_vs_average": 0.58
+   }
+  ]
+ }
+}
